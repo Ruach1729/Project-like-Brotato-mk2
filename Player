@@ -4,11 +4,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI healthText;
+     
 
     Animator anim;
     Rigidbody2D rb;
 
-    float moveSpeed = 6;
+    [SerializeField] float moveSpeed = 6;
     int maxHealth = 100;
     int currentHealth;
 
@@ -23,9 +24,19 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
+        currentHealth = maxHealth;
+        healthText.text = maxHealth.ToString();
+
     }
     private void Update()
     {
+       // Only for testing
+       if (Input.GetKeyDown(KeyCode.Space))
+            Hit(10);
+
+       
+       
+       
         if(dead)
         {
             movement =Vector2.zero;
@@ -50,5 +61,25 @@ public class Player : MonoBehaviour
     {
         rb.velocity = movement * moveSpeed;
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if we collide with an Enemy
+    }
+
+    void Hit(int damage)
+    {
+        anim.SetTrigger("hit");
+        currentHealth -= damage;
+        healthText.text = Mathf.Clamp(currentHealth, 0, maxHealth).ToString();
+
+
+    }
+
+    void Die()
+    {
+        dead = true;
+        // Call GameOver
     }
 }
