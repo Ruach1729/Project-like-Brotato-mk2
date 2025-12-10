@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 
@@ -74,7 +75,8 @@ public class Player : MonoBehaviour
         currentHealth -= damage;
         healthText.text = Mathf.Clamp(currentHealth, 0, maxHealth).ToString();
 
-
+        if(currentHealth <= 0)
+            Die();
     }
 
     void Die()
