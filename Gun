@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -71,4 +72,6 @@ public class Gun : MonoBehaviour
     {
         offset = o;
     }   
+    
+
 }
