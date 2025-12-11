@@ -36,8 +36,9 @@ public class Enemy : MonoBehaviour
     }
     public void Hit(int damage)
     {
+        Debug.Log("Enemy hit: " + gameObject.name);
         currentHealth -= damage;
-        anim.SetTrigger("Hit");
+        anim.SetTrigger("hit");
 
         if(currentHealth <= 0)
             Destroy(gameObject);
