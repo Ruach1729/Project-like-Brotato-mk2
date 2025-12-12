@@ -33,18 +33,22 @@ public class Gun : MonoBehaviour
 
         FindClosestEnemy();
         AimAtEnemy();
+        Shooting();
     }
     void FindClosestEnemy()
     {
         closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
 
         Enemy[] enemies = FindObjectsOfType<Enemy>();
 
         foreach (Enemy enemy in enemies)
         {
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if(distance <= fireDistance)
+            if(distance < closestDistance && distance <= fireDistance)
             {
+                closestDistance = distance;
                 closestEnemy = enemy.transform;
 
             }
@@ -67,7 +71,31 @@ public class Gun : MonoBehaviour
         }
     }
 
+        void Shooting()
+    {
+        if (closestEnemy == null) return;
 
+        timeSinceLastShot += Time.deltaTime;
+        if (timeSinceLastShot >= fireRate)
+        {
+            
+            Shoot();
+            timeSinceLastShot = 0;
+
+        }
+    }
+
+        void Shoot()
+    {
+        var muzzleGo = Instantiate(muzzle, muzzlePosition.position, transform.rotation);
+        muzzleGo.transform.SetParent(transform);
+       
+        Destroy(muzzleGo, 0.05f);
+
+        var projectileGo = Instantiate(projectile, muzzlePosition.position, transform.rotation);
+        Destroy(projectileGo, 3);
+
+    }
         public void SetOffset(Vector2 o)
     {
         offset = o;
