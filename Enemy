@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -36,12 +37,15 @@ public class Enemy : MonoBehaviour
     }
     public void Hit(int damage)
     {
+        Debug.Log("Hit called, currentHealth BEFORE damage = " + currentHealth);
         Debug.Log("Enemy hit: " + gameObject.name);
         currentHealth -= damage;
         anim.SetTrigger("hit");
 
         if(currentHealth <= 0)
+           { 
+            Debug.Log("Enemy Destroyed: " + gameObject.name);
             Destroy(gameObject);
-            
+           }
     }
 }
