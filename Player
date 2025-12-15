@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField] float moveSpeed = 6;
-    int maxHealth = 100;
+    [SerializeField] int maxHealth = 100;
     int currentHealth;
 
     bool dead = false;
